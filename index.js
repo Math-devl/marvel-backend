@@ -6,11 +6,11 @@ const app = express();
 app.use(cors());
 require("dotenv").config();
 
-//---------List of characters : home page-------------//
+//---------List of characters : page Characters-------------//
 
 app.get("/characters", async (req, res) => {
   try {
-    // récupération de tous les caratères via l'url de l'API
+    // récupération de tous les charaters via l'url de l'API
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.API_KEY}`
     );
@@ -23,14 +23,17 @@ app.get("/characters", async (req, res) => {
 
 //----------infos of a specific character : character page----------//
 
+// création d'un route en fonction de l'id
 app.get("/character/:characterId", async (req, res) => {
+  // Récupérer l'ID depuis les paramètres de l'URL
+  const { characterId } = req.params;
+  //console.log(characterId); OK
+  //console.log(process.env.API_KEY); OK
   try {
-    // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/character/5fcf91f4d8a2480017b91453?apiKey=${process.env.API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/character/${characterId}?apiKey=${process.env.API_KEY}`
     );
-    //console.log(response.data.results); // OK
-    return res.json(response.data.results); // renvoie {infos du héro}
+    return res.json(response.data); // Renvoie {} données
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -38,11 +41,12 @@ app.get("/character/:characterId", async (req, res) => {
 
 //---------List of comics containing a specific character-----//
 
-app.get("/comics/:characterId", async (req, res) => {
+app.get("/comics/:comicId", async (req, res) => {
+  const { comicId } = req.params;
   try {
     // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/5fc8ba1fdc33470f788f88b3?apiKey=${process.env.API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${comicId}=${process.env.API_KEY}`
     );
     //console.log(response.data.results); // OK
     return res.json(response.data.results); // renvoie un [] d' {comics} du Héro
