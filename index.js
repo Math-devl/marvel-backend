@@ -41,15 +41,14 @@ app.get("/character/:characterId", async (req, res) => {
 
 //---------List of comics containing a specific character-----//
 
-app.get("/comics/:comicId", async (req, res) => {
+app.get("/comic/:comicId", async (req, res) => {
   const { comicId } = req.params;
+  //console.log(comicId); //ID du personnage / pas bon
   try {
-    // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/${comicId}=${process.env.API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comic/${comicId}?apiKey=${process.env.API_KEY}`
     );
-    //console.log(response.data.results); // OK
-    return res.json(response.data.results); // renvoie un [] d' {comics} du Héro
+    return res.json(response.data);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
