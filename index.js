@@ -4,6 +4,7 @@ const axios = require("axios");
 
 const app = express();
 app.use(cors());
+require("dotenv").config();
 
 //---------List of characters : home page-------------//
 
@@ -11,7 +12,7 @@ app.get("/characters", async (req, res) => {
   try {
     // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      "https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=FC2wFuC9up0LG1Cr"
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.API_KEY}`
     );
     //console.log(response.data.results); // OK
     return res.json(response.data.results); // renvoie un [] de {infos du héro}
@@ -26,7 +27,7 @@ app.get("/character/:characterId", async (req, res) => {
   try {
     // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      "https://lereacteur-marvel-api.herokuapp.com/character/5fcf91f4d8a2480017b91453?apiKey=FC2wFuC9up0LG1Cr"
+      `https://lereacteur-marvel-api.herokuapp.com/character/5fcf91f4d8a2480017b91453?apiKey=${process.env.API_KEY}`
     );
     //console.log(response.data.results); // OK
     return res.json(response.data.results); // renvoie {infos du héro}
@@ -41,7 +42,7 @@ app.get("/comics/:characterId", async (req, res) => {
   try {
     // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      "https://lereacteur-marvel-api.herokuapp.com/comics/5fc8ba1fdc33470f788f88b3?apiKey=FC2wFuC9up0LG1Cr"
+      `https://lereacteur-marvel-api.herokuapp.com/comics/5fc8ba1fdc33470f788f88b3?apiKey=${process.env.API_KEY}`
     );
     //console.log(response.data.results); // OK
     return res.json(response.data.results); // renvoie un [] d' {comics} du Héro
@@ -56,7 +57,7 @@ app.get("/comics", async (req, res) => {
   try {
     // récupération de tous les caratères via l'url de l'API
     const response = await axios.get(
-      "https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=FC2wFuC9up0LG1Cr"
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.API_KEY}`
     );
     //console.log(response.data); // OK
     return res.json(response.data.results); // renvoie un [] de {infos de la bd}
