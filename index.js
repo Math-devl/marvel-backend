@@ -16,7 +16,7 @@ app.get("/characters", async (req, res) => {
     // pagination
 
     const name = req.query.name || "";
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 100;
     const skip = req.query.skip || 0;
 
     const response = await axios.get(
